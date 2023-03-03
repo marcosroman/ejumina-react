@@ -1,0 +1,21 @@
+~/systems/projects/ejumina/code/ejumina-react/server] curl -X POST -H "Content-type: application/json" -d '{"username":"m","password":"m","firstName":"m","lastName":"m","CI":"666","role":"RRPP","isActive":"true"}' http://localhost:8000/api/user/register
+	{"msg":"registered! here, take a cookie","user":{"username":"m","password":"$2b$10$hNVzYVar0i0iWGi86WHAdeeqHQ9Deb1vO3NW4qS/OUAYSx/oEUuqy","firstName":"m","lastName":"m","CI":666,"role":"RRPP","isActive":true,"_id":"63fd66eead92bb2d9a751091","createdAt":"2023-02-28T02:29:02.327Z","updatedAt":"2023-02-28T02:29:02.327Z","__v":0}}
+
+
+
+
+[~/systems/projects/ejumina/code/ejumina-react/server] curl -X POST -H "Content-type: application/json" -d '{"nombre":"evento1","estado":"Upcoming","fecha":"2023-04-01","admin":"63fd66eead92bb2d9a751091"}' http://localhost:8000/api/evento/new
+
+
+[~/systems/projects/ejumina/code/ejumina-react/server] curl -X GET http://localhost:8000/api/evento/all
+[{"_id":"63fd6c2aac7f023d4fea3828","nombre":"evento1","estado":"Upcoming","fecha":"2023-04-01T00:00:00.000Z","admin":"63fd66eead92bb2d9a751091","createdAt":"2023-02-28T02:51:22.400Z","updatedAt":"2023-02-28T02:51:22.400Z","__v":0}]
+
+
+
+
+--- lista
+curl -X GET http://localhost:8000/api/lista/all
+
+
+
+
