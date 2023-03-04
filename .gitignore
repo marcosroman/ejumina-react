@@ -22,4 +22,4 @@ client/*.njsproj
 client/*.sln
 client/*.sw?
 .env
-server/node_modules
+node_modules
