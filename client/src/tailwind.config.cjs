@@ -5,7 +5,12 @@ module.exports = {
 		"./src/**/*.{js,jsx}"
 	],
   theme: {
-    extend: {},
+    extend: {
+			backgroundImage: {
+				'fatty': "url('./static/img/sweatyatrave.png')",
+				'fattytrans': "url('./static/img/sweatyatrave-blurredtransparent.png')"
+			}
+		},
   },
   plugins: [],
 }

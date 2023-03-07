@@ -9,16 +9,17 @@ const Schema = mongoose.Schema;
 const InvitadoSchema = new Schema({
 	nombre: {
 		type: String,
-		required: true
+		required: [true, "Ingrese el nombre"]
 	},
 	apellido: {
 		type: String,
-		required: true
+		required: [true, "Ingrese el apellido"]
 	},
 	CI: { // this could be the id but... not now
 		type: Number,
-		required: true,
-		unique: true
+		required: [true, "Necesitamos el CI...!"],
+		min: [2000000, "Muy vieji para la joda kp, no hay enfermerx en el evento"],
+		unique: [true, "Ese CI ya esta registrado"]
 	},
 	isBaneado: {
 		type: Boolean,

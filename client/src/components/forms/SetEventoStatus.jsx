@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import styles from '@/styles';
 
 const SetEventoStatus = ({evento}) => {
 	const [nuevoEstado, setNuevoEstado] = useState("");
@@ -23,9 +24,12 @@ const SetEventoStatus = ({evento}) => {
 	}
 
 	return (
-		<>
-			<p>Cambiar estado a:</p>
-			<select onChange={e => {setNuevoEstado(e.target.value)}}>
+		<div className={styles.centeredDiv}>
+			<label className="text-base"
+							htmlFor="estado">Cambiar estado a </label>
+			<select className={styles.input}
+							name="estado"
+							onChange={e => {setNuevoEstado(e.target.value)}}>
 				<option value=""></option>
 				{availableEstados.map(s => {
 					return (
@@ -34,10 +38,16 @@ const SetEventoStatus = ({evento}) => {
 				})}
 			</select>
 
-			<button onClick={e => {navigate('/')}}>Cancelar</button>
 
-			<button onClick={e => {nuevoEstado && changeEstado(e)}}>Cambiar</button>
-		</>
+			<div className="flex justify-between w-8/12 m-6">
+        <button className={styles.button("red")}
+          onClick={e => {navigate('/')} }>Cancelar</button>
+        <button className={styles.button("green")}
+          onClick={e => {nuevoEstado && changeEstado(e)}}>
+          Cambiar
+        </button>
+      </div>
+		</div>
 	);
 }
 

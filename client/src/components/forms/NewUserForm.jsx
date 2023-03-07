@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+import styles from '@/styles';
+
 const NewUserForm = () => {
 	const [inputs, setInputs] = useState({});
 	//const [validationErrors, setValidationErrors] = useState([]);
@@ -11,7 +13,7 @@ const NewUserForm = () => {
 	const simpleFields = [
 		{name: "nombre", label: "Nombre", type: "text"},
 		{name: "apellido", label: "Apellido", type: "text"},
-		{name: "username", label: "UserName", type: "text"},
+		{name: "CI", label: "CI", type: "number"},
 		{name: "password", label: "Password", type: "password"},
 		{name: "confirmPassword", label: "Confirmar Password", type: "password"},
 	];
@@ -46,29 +48,51 @@ const NewUserForm = () => {
 
 	return (
 		<form onSubmit={handleSubmit}>
-			{/*validationErrors.map(err => <p key={err}>{err}</p>)*/}
-			{simpleFields.map((field) => {
-				return (
-					<label key={field.name}>{field.label}
-						<input name={field.name}
-								   type={field.type}
-					         value={inputs[field.name] || ""}
-					         onChange={e=>handleChange(e)}
-									 className="border-black " />
-					</label>
-				);
-			})}
-		 <label>Rol
-        <select name="rol"
-                value={inputs["rol"] || ""}
-                onChange={(e)=>handleChange(e)}>
-          {["","RRPP","Bouncer","Admin"].map(r => (
-            <option key={r} value={r}>{r}</option>
-          ))}
-        </select>
-      </label>
+			<h1 className={styles.h1+" text-center"}>Registrar Usuario</h1>
+			<div className={styles.centeredDiv}>
+				<table className="m-6">
+				<tbody>
+				{/*validationErrors.map(err => <p key={err}>{err}</p>)*/}
+				{simpleFields.map((field) => {
+					return (
+						<tr>
+							<td className="text-right">
+								<label key={field.name} htmlFor={field.name}>{field.label}</label>
+							</td>
 
-			<input type="submit" value="Submit" />
+							<td>
+								<input className={styles.input}
+											 name={field.name}
+											 type={field.type}
+											 value={inputs[field.name] || ""}
+											 onChange={e=>handleChange(e)} />
+							</td>
+						</tr>
+					);
+				})}
+
+				<tr>
+					<td className="text-right">
+						<label htmlFor="rol">Rol</label>
+					</td>
+
+					<td>
+						<select className={styles.input}
+										name="rol"
+										value={inputs["rol"] || ""}
+										onChange={(e)=>handleChange(e)}>
+							{["","RRPP","Bouncer","Admin"].map(r => (
+								<option key={r} value={r}>{r}</option>
+							))}
+						</select>
+					</td>
+				</tr>
+				</tbody>
+				</table>
+
+				<input className={styles.button('green')} 
+							 type="submit" value="Registrar"/>
+			</div>
 		</form>
 	)
 }

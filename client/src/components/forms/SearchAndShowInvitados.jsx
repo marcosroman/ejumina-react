@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const SearchAndShowInvitados = ({eventoId, setSelectedInvitacion}) => {
+const SearchAndShowInvitados = ({eventoId, selectedInvitacion, setSelectedInvitacion}) => {
 	const [searchInput, setSearchInput] = useState("");
 	const [invitaciones, setInvitaciones] = useState([]);
 
@@ -9,7 +9,7 @@ const SearchAndShowInvitados = ({eventoId, setSelectedInvitacion}) => {
 		axios.get(`http://localhost:8000/api/invitacion/evento/${eventoId}`)
 			.then(res => {setInvitaciones(res.data.invitaciones);})
 			.catch(err => {alert(err)});
-	}, []);
+	}, [selectedInvitacion]);
 
 	const matchingEntries = (invitaciones, searchString) =>	
 		invitaciones.filter(i => {
@@ -43,11 +43,12 @@ const SearchAndShowInvitados = ({eventoId, setSelectedInvitacion}) => {
 								{ matchingEntries(invitaciones, searchInput)
 										.map(invitacion => {
 											const invitacionId = invitacion._id;
-											const invitadoNombreApellido = invitacion.invitado.nombre + " " + invitacion.invitado.apellido;
+											const invitadoNombreApellido = invitacion.invitado.nombre +
+												" " + invitacion.invitado.apellido;
 											const invitadoCI = invitacion.invitado.CI;
 											const invitacionIsUsada = invitacion.isUsada;
-											const rowStyle = "table-cell border px-2 py-2 "+(invitacionIsUsada ?
-														                            "line-through text-gray-400" : "");
+											const rowStyle = "table-cell border px-2 py-2 " +
+												(invitacionIsUsada ? "line-through text-gray-400" : "");
 
 											return (
 												<tr className="table-row" 

@@ -35,3 +35,8 @@ const NewEventoForm = ({setEvento}) => {
 export default NewEventoForm;
 			//<form>
 			//</form>
+//				<input className="rounded-lg border-solid border-2 border-sky-200 m-2 text-center"
+//								 type="datetime-local" />
+//	<input type="checkbox" name="toggleDate" /> <label htmlFor="toggleDate">No se todavia</label>
+
+

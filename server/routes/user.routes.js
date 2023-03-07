@@ -6,5 +6,8 @@ module.exports = function(app){
     app.post('/api/user/login' , Controller.login);
     app.get('/api/user/logout' , Controller.logout);
     app.get('/api/user/rrpp/active/all' , Controller.getAllActiveRRPPs);
+		app.get('/api/user/token/:token', Controller.getTokenInfo);
+		app.post('/api/user/token/new/token', Controller.newToken);
+		app.get('/api/user/usetoken/:token', Controller.getTokenInfo);
 }
 

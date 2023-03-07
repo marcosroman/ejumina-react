@@ -4,12 +4,17 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user.model');
 const secret_key = process.env.SECRET_KEY;
 
+const Token = require('../models/token.model');
+
 module.exports = {
 	//Get All
 	getAll: async (req, res) => {
 			User.find({})
 					.then((user) => res.json(user))
-					.catch((error) => console.log("Something went wrong (getAll)", error));
+					.catch((error) => {
+						console.log("Something went wrong (getAll)", error)
+						res.status(404).json({error});
+					});
 	},
 
 	// register
@@ -31,7 +36,7 @@ module.exports = {
 
 	// login
 	login: async (req, res) => {
-		User.findOne({ email: req.body.email })
+		User.findOne({ CI: req.body.CI })
 			.then(user => {
 				if (user === null) {
 					res.status(400).json({ message: "invalid login attempt" });
@@ -43,7 +48,7 @@ module.exports = {
 								const userToken = jwt.sign({ _id: user._id }, secret_key)
 
 								res.cookie("userToken", userToken, { httpOnly: true })
-									.json({ message: "success! Login" });
+									.json({ message: "success! Login", rol: user.rol });
 
 							} else {
 								res.status(400).json({ message: "invalid login attempt" });
@@ -56,17 +61,61 @@ module.exports = {
 			.catch(err => res.status(400).json(err));
 	},
 
+	getAllActiveRRPPs: async (req, res) => {
+		User.find({rol: 'RRPP', isActive:true})
+			.then(rrpp => res.json({rrpp}))
+			.catch(err => res.status(404).json({err}));
+	},
+
+	getTokenInfo: async (req, res) => {
+		Token.findById(req.params.token)
+			.then(token => res.json({token}))
+			.catch(err => res.status(404).json({err}));
+	},
+	
+	newToken: async (req, res) => {
+		Token.create({rol: req.body.rol})
+			.then(token => res.json({token}))
+			.catch(err => res.status(404).json({err}));
+	},
+
+	useToken: async (req, res) => {
+		Token.findByIdAndUpdate(req.params.token,{isUsed: true})
+			.then(token => res.json({token}))
+			.catch(err => res.status(404).json({err}));
+	},
+
+
+	//check if user is logged in
+	checkUser: async (req, res, next) => {
+    let currentUser; if (req.cookies.jwt) {
+        const token = req.cookies.jwt;
+        const decoded = await promisify(jwt.verify)(token, secret_key);
+        currentUser = await User.findById(decoded._id);
+    } else {
+        currentUser = null;
+    }
+    res.status(200).send({ currentUser });
+	},
+
+	//log user out
+	logout: async (req, res) => {
+    res.cookie('userToken', '', {
+        expires: new Date(Date.now() + 10 * 1000),
+        httpOnly: true
+    }); res.status(200).send('user is logged out');
+	}
+
+	/*
 	// logout
 	logout: (req, res) => {
 		res.clearCookie('userToken');
 		//	.json({message: 'User logout'});
 		//console.log('logging out!');
 	},
+	*/
 
-	getAllActiveRRPPs: async (req, res) => {
-		User.find({rol: 'RRPP', isActive:true})
-			.then(rrpp => res.json({rrpp}))
-			.catch(err => res.json({err}));
-	}
+
 
 }
+

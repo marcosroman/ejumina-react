@@ -2,31 +2,32 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const UserSchema = new mongoose.Schema({
+	/*
 	username: {
 		type: String,
 		required: [true, "username is required"],
 		//unique
 	},
+	*/
 	password: {
 		type: String,
-		required: [true, "password is required"],
+		required: [true, "Te falta el password"],
 		//minlength: [8, "Password must be 8 characters or longer"]
 	},
 	nombre: {
 		type: String,
-		required: [true, "First name is required"]
+		required: [true, "Te falta el nombre"]
 	},
 	apellido: {
 		type: String,
-		required: [true, "Last name is required"]
+		required: [true, "Te falta el apellido"]
 	},
-	/*
 	CI: {
 		type: Number,
-		required: [true, "CI is required"],
+		required: [true, "Necesito tu CI...!"],
+		min: [2000000, "Cuando piko naciste vos?"],
 		unique: true
 	},
-	*/
 	rol: {
 		type: String,
 		enum: ["Admin","RRPP","Bouncer"],

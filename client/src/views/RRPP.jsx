@@ -7,12 +7,10 @@ import Loading from '@views/Loading'
 
 const RRPP = () => {
 	const [isLoaded, setIsLoaded] = useState(false);
-	//const [selectedEvento, setSelectedEvento] = useState({});
 	const [upcomingEventos, setUpcomingEventos] = useState([]);
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		// get upcoming eventos...
 		axios.get("http://localhost:8000/api/evento/upcoming")
 			.then(res => {
 				setUpcomingEventos(res.data.eventos);
@@ -22,9 +20,8 @@ const RRPP = () => {
 	}, []);
 
 	// if there is EXACTLY ONE, redirect to the upcoming evento page (so that)
-	// else, if theres more than one, show the list so that one can be chosen
-	// if none, display error message
-
+	// else if than one, show the list so that one can be chosen
+	// else (if none), display error message
 	if (isLoaded) {
 		if (upcomingEventos.length === 1) {
 			navigate(`/rrpp/${upcomingEventos[0]._id}`);
@@ -49,8 +46,8 @@ const RRPP = () => {
 				<>
 					<Nav/>
 					<div className="text-center">
-						<p>No hay proximos eventos.</p>
-						<p>(Si se trata de un error, notifica al administrador)</p>
+						<p>No hay proximos eventos</p>
+						<p className="text-xs">(Si se trata de un error, notifica al administrador)</p>
 					</div>
 				</>
 			);

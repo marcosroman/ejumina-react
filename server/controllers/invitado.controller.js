@@ -16,12 +16,18 @@ module.exports = {
 	getAll: async (req, res) => {
 		Invitado.find({})
 			.then((invitados) => res.json({invitados}))
-			.catch((error) => console.log("Something went wrong (getAll)", error));
+			.catch((error) => {
+				console.log("Something went wrong (getAll)", error);
+				res.status(404).json({error});
+			});
 	},
 
 	findByCI: async (req, res) => {
 		Invitado.findOne({CI: req.params.ci})
 			.then((invitado) => res.json({invitado}))
-			.catch((error) => console.log("error looking for CI!", error));
+			.catch((error) => {
+				console.log("error looking for CI!", error)
+				res.status(404).json({error});
+			});
 	}
 }

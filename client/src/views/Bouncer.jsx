@@ -1,7 +1,6 @@
 //import { AuthConsumer } from '@auth/useAuth';
 //<AuthConsumer>
 //</AuthConsumer>
-//
 import { useState, useEffect } from 'react';
 import SearchAndShowInvitados from '@forms/SearchAndShowInvitados';
 import SelectInvitado from '@forms/SelectInvitado';
@@ -25,7 +24,7 @@ const Bouncer = () => {
 			.catch(err => {
 				console.log("error al descargar eventos!",err);
 			});
-	}, []);
+	}, [selectedInvitacion]);
 
 	// if there is EXACTLY ONE, then get the relevant data (id and name are enough i guess)
 		// then send ongoingEventos via props to SearchAndShowInvitees component, so that it allows for search and display    lgo get list of invitados for this event (mostrar como tachados los que ya entraron!)
@@ -56,16 +55,20 @@ const Bouncer = () => {
 			return (
 				<>
 					<Nav/>
-					<p>Existe mas de un evento ocurriendo en simultaneo.</p>
-					<p>Consulte con un administrador</p>
+					<div className="flex justify-center text-center flex-col m-10">
+						<p>Existe mas de un evento ocurriendo en simultaneo</p>
+						<p className="text-xs">Consulta con un administrador</p>
+					</div>
 				</>
 			);
 		} else {
 			return (
 				<>
 					<Nav/>
-					<p>No hay eventos ocurriendo actualmente.</p>
-					<p>(Si esto es un error, consulte con un administrador)</p>
+					<div className="flex justify-center text-center flex-col m-10">
+						<p>No hay ningun evento ahora</p>
+						<p className="text-xs">(Si esto es un error, consulta con un administrador)</p>
+					</div>
 				</>
 			);
 		}

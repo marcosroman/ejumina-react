@@ -16,7 +16,10 @@ module.exports = {
 	getAll: async (req, res) => {
 		Invitacion.find({})
 			.then((invitaciones) => res.json({invitaciones}))
-			.catch((error) => console.log("Something went wrong (getAll)", error));
+			.catch((error) => {
+				console.log("Something went wrong (getAll)", error)
+				res.status(404).json({error});
+			});
 	},
 
 	getInvitacionPerEvento: async (req, res) => {
@@ -26,13 +29,13 @@ module.exports = {
 			.then((invitaciones) => res.json({invitaciones}))
 			.catch((error) => {
 				console.log("Something went wrong (getAll)", error)
-				res.json({error});
+				res.status(404).json({error});
 			});
 	},
 
 	useInvitacion: async (req, res) => {
 		await Invitacion.findOneAndUpdate({_id: req.params.id},{isUsada: true}/*,{returnOriginal:false	}*/)
 			.then(invitacion => res.json({invitacion}))
-			.catch(err => res.json({err}));
+			.catch(err => res.status(400).json({err}));
 	}
 }

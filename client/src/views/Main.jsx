@@ -3,8 +3,8 @@ import appicon from '@static/appicon.png';
 
 const Main = () =>{
 	return (
-		<div className="bg-[url('/static/appicon.png')] ">
-			<h1 className="text-bold text-blue-600 text-center text-5xl m-20">ejumina</h1>
+		<div>
+			<h1 className="text-bold text-blue-600 text-center md:text-5xl m-20 sm:text-xl">ejumina</h1>
 			<ul className="text-center">
 				<li>
 					<Link to="/bouncer">Bouncer View</Link>

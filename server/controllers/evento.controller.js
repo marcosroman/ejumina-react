@@ -15,13 +15,16 @@ module.exports = {
 	getAll: async (req, res) => {
 		Evento.find({})
 			.then((eventos) => res.json({eventos}))
-			.catch((error) => console.log("Something went wrong (getAll)", error));
+			.catch((error) => {
+				console.log("Something went wrong (getAll)", error)
+				res.status(404).json({error});
+			});
 	},
 
 	getById: async (req, res) => {
 		await Evento.findById(req.params.id)
 		.then(evento => res.json({evento}))
-		.catch(err => res.json({err}));
+		.catch(err => res.status(404).json({err}));
 	},
 
 	getOngoing: async (req, res) => {
@@ -30,7 +33,10 @@ module.exports = {
 				console.log({eventos});
 				res.json({eventos});
 			})
-			.catch((error) => console.log("Something went wrong (getOngoing)", error));
+			.catch((error) => {
+				console.log("Something went wrong (getOngoing)", error);
+				res.status(404).json({error});
+			});
 	},
 
 	getUpcoming: async (req, res) => {
@@ -39,7 +45,10 @@ module.exports = {
 				console.log({eventos});
 				res.json({eventos});
 			})
-			.catch((error) => console.log("Something went wrong (getUpcoming)", error));
+			.catch((error) => {
+				console.log("Something went wrong (getUpcoming)", error)
+				res.status(404).json({error})
+			});
 	},
 
 	setFreePasses: async (req, res) => {
@@ -56,15 +65,15 @@ module.exports = {
 					})
 					.catch(err => {
 						//console.log("not ok?", err);
-						res.json({err})
+						res.status(400).json({err});
 					});
 			})
-			.catch(err => res.json({err}));
+			.catch(err => res.status(400).json({err}));
 	},
 	
 	edit: async (req, res) => {
 		await Evento.findByIdAndUpdate(req.body.id, {...req.body})
 			.then(evento => res.json({evento}))
-			.catch(err => res.json({err}));
+			.catch(err => res.status(400).json({err}));
 	}
 }

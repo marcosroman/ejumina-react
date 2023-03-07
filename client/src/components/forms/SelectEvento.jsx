@@ -15,16 +15,19 @@ const SelectEvento = ({setEvento}) => {
 	},[]);
 
 	return (
-		<select onChange={e => {setEvento(eventos[e.target.value])}}>
-			<option value="">Seleccionar evento...</option>
-			{eventos.map((evento,index) => {
-				return (
-					<option key={evento._id} value={index}>
-						{evento.nombre} ({evento.estado})
-					</option>
-				);
-			})}
-		</select>
+		<div className="flex items-center justify-center flex-col">
+			<select className="rounded-lg border-solid border-2 border-sky-200 m-10 text-center"
+							onChange={e => {e.target.value && setEvento(eventos[e.target.value])}}>
+				<option value="">Seleccionar evento...</option>
+				{eventos.map((evento,index) => {
+					return (
+						<option key={evento._id} value={index}>
+							{evento.nombre} ({evento.estado})
+						</option>
+					);
+				})}
+			</select>
+		</div>
 	);
 }
 
