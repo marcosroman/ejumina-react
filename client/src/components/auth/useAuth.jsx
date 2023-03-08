@@ -1,6 +1,7 @@
-import React from "react";
+import React, { createContext, useState, useEffect } from "react";
+import axios from 'axios'
 
-const authContext = React.createContext();
+const authContext = createContext();
 
 const useAuth = () => {
 	const [authed, setAuthed] = React.useState(false);
@@ -25,13 +26,20 @@ const useAuth = () => {
 const AuthProvider = ({ children }) => {
   const auth = useAuth();
 
-  return <authContext.Provider value={auth}>{children}</authContext.Provider>;
+  return (
+		<authContext.Provider value={auth}>
+			{children}
+		</authContext.Provider>
+	);
 }
 
 const AuthConsumer = () => {
   return React.useContext(authContext);
 }
 
-export { AuthProvider, AuthConsumer };
+export { AuthProvider /*, AuthConsumer*/ };
 export default useAuth;
+
+
+
 

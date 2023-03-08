@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import appicon from '@static/appicon.png';
 import powericon from '@static/powericon.png';
 import axios from 'axios';
 
 const Nav = () => {
+	const navigate = useNavigate();
 	const logout = (e) =>
 		axios.get('http://localhost:8000/api/user/logout')
 			.then(() => {
