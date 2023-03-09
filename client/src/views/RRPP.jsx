@@ -29,8 +29,7 @@ const RRPP = () => {
 			return (
 				<>
 					<Nav/>
-					<h2 className="text-blue-300 text-xl text-center m-4">Proximos Eventos</h2>
-				  <p className="text-gray-600 text-bold text-base text-center m-4">Seleccione un evento para extender invitaciones</p>
+				  <p className="text-gray-200 text-bold text-base text-center m-4">Seleccione un evento proximo para extender invitaciones</p>
 
 					<div className="text-center m-10">
 						<ul>
@@ -59,3 +58,4 @@ const RRPP = () => {
 
 export default RRPP;
 
+					//<h2 className="text-blue-300 text-xl text-center m-4">Proximos Eventos</h2>

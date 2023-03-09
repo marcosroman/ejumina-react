@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import Nav from '@layouts/Nav';
 
+import useAuth from '@auth/useAuth';
 import SearchInvitado from '@forms/SearchInvitado';
 import NewInvitado from '@forms/NewInvitado';
 import Invite from '@forms/Invite';
@@ -16,11 +17,11 @@ const InviteToUpcomingEvento = () => {
 	const [cantRemainingFreePasses,setCantRemainingFreePasses] = useState(0);
 	const [cantFreePassesAsignados,setCantFreePassesAsignados] = useState(0);
 	const { upcomingEventoId } = useParams();
+	const { userId } = useAuth();
 
 	//const remainingFreePasses = 10; // por ahora...
 	//const givenFreePasses = 20;
 	//const totalInvitaciones = 98;
-	const myRRPPId="6404ccbde6269d6dd7870e64";
 
 	useEffect(() => {
 		// lo primero es fetch info de mis invitaciones al evento
@@ -38,11 +39,11 @@ const InviteToUpcomingEvento = () => {
 						//console.log('ok!',res);
 						const invitaciones = res.data.invitaciones;
 						setInvitaciones(invitaciones);
-						const misInvitaciones = invitaciones.filter(i => i.rrpp._id === myRRPPId);
+						const misInvitaciones = invitaciones.filter(i => i.rrpp._id === userId);
 						const cantMisInvitaciones = misInvitaciones.length;
 						const misFreePasses = misInvitaciones.filter(i=>i.isFreePass);
 						const cantMisFreePasses = misFreePasses.length;
-						const cantMisFreePassesAsignados = thisEvento.freePasses.filter(a=>a.rrpp === myRRPPId)[0].cantidad;
+						const cantMisFreePassesAsignados = thisEvento.freePasses.filter(a=>a.rrpp === userId)[0].cantidad;
 						setCantMisInvitaciones(cantMisInvitaciones);
 						setCantRemainingFreePasses(cantMisFreePassesAsignados-cantMisFreePasses);
 						setCantFreePassesAsignados(cantMisFreePassesAsignados);
@@ -66,8 +67,8 @@ const InviteToUpcomingEvento = () => {
 	return (
 		<>
 			<Nav/>
-			<div className="flex items-center justify-center flex-col">
-				<h1 className="text-blue-500 text-bold text-xl">{evento.nombre}</h1>
+			<div className="flex items-center justify-center flex-col my-auto">
+				<h1 className="text-blue-500 font-bold text-xl bg-gray-100 rounded-xl px-3 py-1">{evento.nombre}</h1>
 
 				<div className="text-center mt-3">
 					<p className="text-xs">Mis invitados: {cantMisInvitaciones}</p>

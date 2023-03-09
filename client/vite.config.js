@@ -14,13 +14,13 @@ export default defineConfig({
 				replacement: path.resolve(__dirname, "src/views")
 			},
 			{ find: "@auth", 
-				replacement: path.resolve(__dirname, "src/components/auth")
+				replacement: path.resolve(__dirname, "src/auth")
 			},
 			{ find: "@forms", 
-				replacement: path.resolve(__dirname, "src/components/forms")
+				replacement: path.resolve(__dirname, "src/forms")
 			},
 			{ find: "@layouts", 
-				replacement: path.resolve(__dirname, "src/components/layouts")
+				replacement: path.resolve(__dirname, "src/layouts")
 			},
 			{ find: "@static", 
 				replacement: path.resolve(__dirname, "src/static")

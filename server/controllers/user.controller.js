@@ -48,8 +48,13 @@ module.exports = {
 								const userToken = jwt.sign({ _id: user._id }, secret_key)
 
 								res.cookie("userToken", userToken, { httpOnly: true })
-									.json({ message: "success! Login", rol: user.rol });
-
+									.json({
+										message: "logged in",
+										rol: user.rol,
+										CI: user.CI,
+										_id: user._id,
+										nombre: user.nombre + " " + user.apellido
+									});
 							} else {
 								res.status(400).json({ message: "invalid login attempt" });
 							}
@@ -88,7 +93,8 @@ module.exports = {
 
 	//check if user is logged in
 	checkUser: async (req, res, next) => {
-    let currentUser; if (req.cookies.jwt) {
+    let currentUser;
+		if (req.cookies.jwt) {
         const token = req.cookies.jwt;
         const decoded = await promisify(jwt.verify)(token, secret_key);
         currentUser = await User.findById(decoded._id);
@@ -100,10 +106,20 @@ module.exports = {
 
 	//log user out
 	logout: async (req, res) => {
+		//console.log(res);
+		/*
     res.cookie('userToken', '', {
         expires: new Date(Date.now() + 10 * 1000),
         httpOnly: true
-    }); res.status(200).send('user is logged out');
+    });
+		*/
+
+		//res.clearCookie('userToken');
+		//res.status(200).send('logged out');
+
+		res.clearCookie('userToken');//.end();
+		res.status(200).send('logged out');
+		res.end();
 	}
 
 	/*
@@ -114,8 +130,6 @@ module.exports = {
 		//console.log('logging out!');
 	},
 	*/
-
-
 
 }
 

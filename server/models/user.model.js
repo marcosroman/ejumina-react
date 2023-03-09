@@ -24,14 +24,14 @@ const UserSchema = new mongoose.Schema({
 	},
 	CI: {
 		type: Number,
-		required: [true, "Necesito tu CI...!"],
-		min: [2000000, "Cuando piko naciste vos?"],
+		required: [true, "Falta CI"],
+		min: [2000000, "CI invalido"],
 		unique: true
 	},
 	rol: {
 		type: String,
 		enum: ["Admin","RRPP","Bouncer"],
-		required: true
+		required: [true, "Rol? ;)"]
 	},
 	isActive: {
 		type: Boolean,
